@@ -1,0 +1,482 @@
+{
+	"info": {
+		"_postman_id": "conversational-bot-collection",
+		"name": "Conversational Bot API",
+		"description": "Colección de Postman para probar el Motor Conversacional de Soporte.\n\n## Endpoints disponibles:\n\n### Bot API (Puerto 5000)\n- POST /messages - Enviar mensaje al bot\n\n### Mock API (Puerto 5001)\n- POST /oauth/token - Obtener token OAuth\n- POST /tickets - Crear ticket\n- GET /tickets/{id} - Consultar estado de ticket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bot API",
+			"item": [
+				{
+					"name": "1. Saludo inicial",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"Hola\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Envía un saludo al bot para recibir información sobre las opciones disponibles."
+					},
+					"response": []
+				},
+				{
+					"name": "2. Solicitar ayuda",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"ayuda\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Solicita ayuda al bot para ver todas las opciones disponibles."
+					},
+					"response": []
+				},
+				{
+					"name": "3. Iniciar creación de ticket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"Quiero crear un ticket\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Inicia el flujo guiado para crear un ticket de soporte."
+					},
+					"response": []
+				},
+				{
+					"name": "4. Proporcionar nombre",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"Juan Pérez García\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Proporciona el nombre del usuario en el flujo de creación de ticket."
+					},
+					"response": []
+				},
+				{
+					"name": "5. Proporcionar email (inválido)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"email-invalido\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Envía un email inválido para probar la validación."
+					},
+					"response": []
+				},
+				{
+					"name": "6. Proporcionar email (válido)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"juan.perez@empresa.com\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Proporciona un email válido en el flujo de creación de ticket."
+					},
+					"response": []
+				},
+				{
+					"name": "7. Proporcionar descripción",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"Mi aplicación no carga correctamente cuando intento acceder al módulo de reportes. El error aparece después de iniciar sesión.\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Proporciona la descripción del problema en el flujo de creación de ticket."
+					},
+					"response": []
+				},
+				{
+					"name": "8. Confirmar creación de ticket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"sí\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Confirma la creación del ticket. El bot creará el ticket y devolverá el ID."
+					},
+					"response": []
+				},
+				{
+					"name": "9. Consultar estado de ticket existente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"ver estado del ticket TCK-100\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Consulta el estado de un ticket pre-cargado en el sistema (TCK-100 o TCK-101)."
+					},
+					"response": []
+				},
+				{
+					"name": "10. Consultar ticket no existente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-001\",\n    \"message\": \"ver estado del ticket TCK-999\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Intenta consultar un ticket que no existe para ver el manejo de errores."
+					},
+					"response": []
+				},
+				{
+					"name": "11. Cancelar flujo activo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-002\",\n    \"message\": \"crear ticket\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Inicia un nuevo flujo para luego cancelarlo."
+					},
+					"response": []
+				},
+				{
+					"name": "12. Ejecutar cancelación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversationId\": \"conv-002\",\n    \"message\": \"cancelar\"\n}"
+						},
+						"url": {
+							"raw": "{{bot_url}}/messages",
+							"host": [
+								"{{bot_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Cancela el flujo activo. El bot debe limpiar el estado y confirmar la cancelación."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints del Bot Conversacional (Puerto 5000)"
+		},
+		{
+			"name": "Mock API (Servicios Externos)",
+			"item": [
+				{
+					"name": "Obtener Token OAuth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "bot-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "bot-secret",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{mock_url}}/oauth/token",
+							"host": [
+								"{{mock_url}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						},
+						"description": "Obtiene un token OAuth de la Mock API. El token tiene una validez de 1 hora."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Ticket (directo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Usuario Test\",\n    \"email\": \"test@example.com\",\n    \"description\": \"Descripción del problema de prueba\"\n}"
+						},
+						"url": {
+							"raw": "{{mock_url}}/tickets",
+							"host": [
+								"{{mock_url}}"
+							],
+							"path": [
+								"tickets"
+							]
+						},
+						"description": "Crea un ticket directamente en la Mock API (requiere token)."
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Ticket (directo)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{mock_url}}/tickets/TCK-100",
+							"host": [
+								"{{mock_url}}"
+							],
+							"path": [
+								"tickets",
+								"TCK-100"
+							]
+						},
+						"description": "Consulta un ticket directamente en la Mock API (requiere token)."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de la Mock API que simula el servicio externo (Puerto 5001)"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bot_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "mock_url",
+			"value": "http://localhost:5001",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
